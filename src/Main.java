@@ -100,8 +100,8 @@ public class Main {
             System.out.println("\nChoose an option:");
             System.out.println("1. View Persons");
             System.out.println("2.  Filter by letter");
-            System.out.println("3. Filter by win");
-            System.out.println("4. Save results to file");
+            System.out.println("3. Stark house ");
+            System.out.println("4. write ereignisse in file");
             System.out.println("5. Calculate total points for Persons");
             System.out.println("0. Exit");
 
@@ -121,10 +121,12 @@ public class Main {
                     peopleWithLetter(people, letter);
                     break;
                 case "3":
+                    System.out.println("Stark house ereigniss");
+                    sortEreigniss(people);
 
                     break;
                 case "4":
-
+                    writeEreignisse("ereignisse.txt",people);
                     break;
                 case "5":
 
@@ -179,6 +181,31 @@ public class Main {
 
     }
 
+    public static void sortEreigniss(List<Person> people){
+        System.out.println("Ereigniss fur stark");
+        people.stream()
+                .filter(person -> person.getHouse().equals(House.STARK))
+                .sorted(Comparator.comparing(Person::getDate))
+                .forEach(person -> System.out.println( person.getDate() + " "+ person.getName() +  " "+ person.getEreigniss()));
+    }
+
+    public static void writeEreignisse(String filename, List<Person> people) throws IOException {
+        HashMap<House, Integer> ereignisses = new HashMap<>();
+        for(Person person : people){
+            ereignisses.put(person.getHouse(), ereignisses.getOrDefault(person.getHouse(), 0) + 1);
+        }
+
+        List<Map.Entry<House, Integer>> ergList = new ArrayList<>(ereignisses.entrySet());
+        ergList.sort(Comparator.comparing(Map.Entry::getKey));
+
+        BufferedWriter writer = Files.newBufferedWriter(Paths.get(filename));
+        for(Map.Entry<House, Integer> entry : ergList){
+            writer.write(entry.getKey() + "#" + entry.getValue());
+            writer.newLine();
+        }
+        writer.close();
+        System.out.println("wrote in file " + filename);
+    }
 
 
 
