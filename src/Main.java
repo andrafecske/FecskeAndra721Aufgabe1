@@ -116,7 +116,10 @@ public class Main {
                     people.forEach(System.out::println);
                     break;
                 case "2":
-
+                    System.out.println("Enter letter");
+                    String letter = scanner.nextLine();
+                    peopleWithLetter(people, letter);
+                    break;
                 case "3":
 
                     break;
@@ -159,6 +162,13 @@ public class Main {
         return persons;
     }
 
+    /**
+     *
+     * @param people
+     * @param let
+     *
+     * prints a list of ppl whose name start with letter let
+     */
     public static void peopleWithLetter(List<Person> people, String let){
         System.out.println("Pppl with letter" + let);
         people.stream()
