@@ -181,6 +181,11 @@ public class Main {
 
     }
 
+    /**
+     *
+     * @param people
+     * prints the list of the Stark haus susccess on the screen
+     */
     public static void sortEreigniss(List<Person> people){
         System.out.println("Ereigniss fur stark");
         people.stream()
@@ -188,6 +193,15 @@ public class Main {
                 .sorted(Comparator.comparing(Person::getDate))
                 .forEach(person -> System.out.println( person.getDate() + " "+ person.getName() +  " "+ person.getEreigniss()));
     }
+
+    /**
+     *
+     * @param filename
+     * @param people
+     * @throws IOException
+     *
+     * writes the amount of successes of each house in a given file
+     */
 
     public static void writeEreignisse(String filename, List<Person> people) throws IOException {
         HashMap<House, Integer> ereignisses = new HashMap<>();
